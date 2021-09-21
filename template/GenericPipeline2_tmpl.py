@@ -1,4 +1,4 @@
-from mldev.utils import prepare_experiment_command, exec_command
+import subprocess
 {# #}
 {# #}
 
@@ -10,8 +10,8 @@ def {{basic_stage['name']}}({%- for param_name, param_value in basic_stage['para
         outputs = {{basic_stage['outputs']}}
         script = {{basic_stage['script']}}
 
-        script = prepare_experiment_command(cmdline=' && '.join([str(s) for s in script]), env=env)
-        exec_command(script)
+        cmdline = ' && '.join([str(s) for s in script])
+        subprocess.run(cmdline, shell=True)
 
 {% endfor %}
 
